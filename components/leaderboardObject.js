@@ -15,7 +15,6 @@ class LeaderboardObject extends React.Component {
         this.setState({[target]: value});
     }
 
-
     addTeam() {
 
     }
