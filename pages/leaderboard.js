@@ -7,7 +7,7 @@ import PageNavbar from "../components/navbar";
 class Leaderboard extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { teamName: '', leaderBoard: null };
+        this.state = { teamName: '', leaderBoard: null, leaderboardGroupItems: null };
         this.addTeam = this.addTeam.bind(this);
     }
 
@@ -55,8 +55,15 @@ class Leaderboard extends React.Component {
                 }
             }).then(async (res) => {
                 const data = await res.json();
-                this.setState({ leaderBoards: data });
-                console.log(leaderBoards)
+                this.setState({ leaderboardList: data.leaderboards });
+                console.log('leaderboard list is ')
+                console.log(data.leaderboards)
+
+                const leaderboardGroupItems = data.leaderboards.map((leaderboard) => {
+                    return <ListGroupItem>{leaderboard.name}</ListGroupItem>;
+                });
+                this.setState({leaderboardGroupItems});
+
             }).catch((error) => {
                 this.setState({ loading: false });
             });
@@ -75,11 +82,7 @@ class Leaderboard extends React.Component {
                     <PageNavbar></PageNavbar>
                     <div className="sideBar" style={{ height: '100%', width: '20vw' }}>
                         <ListGroup style={{height:'100vh', borderRight: '#212529'}}>
-                            <ListGroupItem>Cras justo odio</ListGroupItem>
-                            <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-                            <ListGroupItem>Morbi leo risus</ListGroupItem>
-                            <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-                            <ListGroupItem>Vestibulum at eros</ListGroupItem>
+                            {this.state.leaderboardGroupItems}
                         </ListGroup>
                     </div>
                     <div className="container">
