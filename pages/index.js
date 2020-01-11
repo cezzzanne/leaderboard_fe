@@ -38,7 +38,10 @@ class Index extends React.Component {
                 })
             }).then(async (res) => {
             const data = await res.json();
-            const userID = await localStorage.setItem('userID', data.userID);
+            await localStorage.setItem('userID', data.userID);
+            await localStorage.setItem('username', data.username);
+            await localStorage.setItem('teamID', data.teamID);
+            await localStorage.setItem('teamName', data.teamName);
             this.setState({loading: false});
             window.location.href = '/leaderboard'
         }).catch((error) => {
@@ -62,10 +65,10 @@ class Index extends React.Component {
                 })
             }).then(async (res) => {
             const data = await res.json();
-            const userID = await localStorage.setItem('userID', data.userID);
-            const username = await localStorage.setItem('username', data.username);
-            const teamID = await localStorage.setItem('teamID', data.teamID);
-            const teamName = await localStorage.setItem('teamName', data.teamName);
+            await localStorage.setItem('userID', data.userID);
+            await localStorage.setItem('username', data.username);
+            await localStorage.setItem('teamID', data.teamID);
+            await localStorage.setItem('teamName', data.teamName);
             this.setState({loading: false});
             window.location.href = '/leaderboard'
         }).catch((error) => {
