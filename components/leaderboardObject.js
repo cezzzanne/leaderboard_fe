@@ -25,9 +25,12 @@ class LeaderboardObject extends React.Component {
     }
 
 
+
+
     async addScore() {
         const userID = await localStorage.getItem('userID');
         const leaderboardID = this.props.data.id;
+        console.log(leaderboardID);
         const score = this.state.score;
         fetch('http://127.0.0.1:8000/api/leaderboard/add-score',
             {
@@ -43,6 +46,7 @@ class LeaderboardObject extends React.Component {
                 })
             }).then(async (res) => {
                 const data = await res.json();
+                this.setState({addScoreModal: false});
         }).catch((error) => {
             this.setState({loading: false});
         });
@@ -50,19 +54,17 @@ class LeaderboardObject extends React.Component {
 
     async componentDidMount() {
         console.log(this.props);
-        // if (this.props.data) {
-        //     this.props.data.players.sort((playerA, playerB) => {
-        //         return playerA.current_score - playerB.current_score
-        //     });
-        //     const scores = this.props.data.players.map((player) => {
-        //         return <tr>
-        //             <td>{player.user.username}</td>
-        //             <td>{player.current_score}</td>
-        //             <td>{player.score}</td>
-        //         </tr>;
-        //     });
-        //     this.setState({scores});
-        // }
+        this.props.data.team.players.sort((playerA, playerB) => {
+            return playerB.current_score - playerA.current_score
+        });
+        const scores = this.props.data.team.players.map((player) => {
+            return <tr>
+                    <td>{player.user.username}</td>
+                    <td>{player.current_score}</td>
+                    <td>{player.score}</td>
+            </tr>;
+            });
+        this.setState({scores});
     }
 
     updateInput(e) {
@@ -76,25 +78,24 @@ class LeaderboardObject extends React.Component {
     render() {
         return (
            <div style={{width: '100%'}}>
-               {/*<Modal open={this.state.addScoreModal} toggle={this.toggle}>*/}
-                   {/*<ModalHeader>Update your score for this week</ModalHeader>*/}
-                   {/*<ModalBody>*/}
-                       {/*<Form style={{maxWidth: '14vw'}}>*/}
-                           {/*<FormGroup>*/}
-                               {/*<label htmlFor="#score">Score Logged</label>*/}
-                               {/*<FormInput type="number" onChange={this.updateInput} value={this.state.usernameLogin} id="score" placeholder="Score Logged" />*/}
-                           {/*</FormGroup>*/}
-                       {/*</Form>*/}
-                   {/*</ModalBody>*/}
-                   {/*<ModalFooter>*/}
-                       {/*<Button className="float-right" onClick={this.addScore}  theme="info">Add</Button>*/}
-                   {/*</ModalFooter>*/}
-               {/*</Modal>*/}
-               {/*<h2> Leaderboard1 <a onClick={this.toggle} href="#">+</a></h2>*/}
-               {/*<table>*/}
-                   {/*{this.state.scores }*/}
-               {/*</table>*/}
-<p>Hello</p>
+               <Modal open={this.state.addScoreModal} toggle={this.toggle}>
+                   <ModalHeader>Update your score for this week</ModalHeader>
+                   <ModalBody>
+                       <Form style={{maxWidth: '14vw'}}>
+                           <FormGroup>
+                               <label htmlFor="#score">Score Logged</label>
+                               <FormInput type="number" onChange={this.updateInput} value={this.state.usernameLogin} id="score" placeholder="Score Logged" />
+                           </FormGroup>
+                       </Form>
+                   </ModalBody>
+                   <ModalFooter>
+                       <Button className="float-right" onClick={this.addScore}  theme="info">Add</Button>
+                   </ModalFooter>
+               </Modal>
+               <h2> LeaderBoard <a onClick={this.toggle} href="#">+</a></h2>
+               <table className="table">
+               {this.state.scores }
+               </table>
            </div>
         );
     }
