@@ -49,19 +49,20 @@ class LeaderboardObject extends React.Component {
     }
 
     async componentDidMount() {
-        if (this.props.data) {
-            this.props.data.players.sort((playerA, playerB) => {
-                return playerA.current_score - playerB.current_score
-            });
-            const scores = this.props.data.players.map((player) => {
-                return <tr>
-                    <td>{player.user.username}</td>
-                    <td>{player.current_score}</td>
-                    <td>{player.score}</td>
-                </tr>;
-            });
-            this.setState({scores});
-        }
+        console.log(this.props);
+        // if (this.props.data) {
+        //     this.props.data.players.sort((playerA, playerB) => {
+        //         return playerA.current_score - playerB.current_score
+        //     });
+        //     const scores = this.props.data.players.map((player) => {
+        //         return <tr>
+        //             <td>{player.user.username}</td>
+        //             <td>{player.current_score}</td>
+        //             <td>{player.score}</td>
+        //         </tr>;
+        //     });
+        //     this.setState({scores});
+        // }
     }
 
     updateInput(e) {
@@ -75,25 +76,25 @@ class LeaderboardObject extends React.Component {
     render() {
         return (
            <div style={{width: '100%'}}>
-               <Modal open={this.state.addScoreModal} toggle={this.toggle}>
-                   <ModalHeader>Update your score for this week</ModalHeader>
-                   <ModalBody>
-                       <Form style={{maxWidth: '14vw'}}>
-                           <FormGroup>
-                               <label htmlFor="#score">Score Logged</label>
-                               <FormInput type="number" onChange={this.updateInput} value={this.state.usernameLogin} id="score" placeholder="Score Logged" />
-                           </FormGroup>
-                       </Form>
-                   </ModalBody>
-                   <ModalFooter>
-                       <Button className="float-right" onClick={this.addScore}  theme="info">Add</Button>
-                   </ModalFooter>
-               </Modal>
-               <h2> Leaderboard1 <a onClick={this.toggle} href="#">+</a></h2>
-               <table>
-                   {this.state.scores }
-               </table>
-
+               {/*<Modal open={this.state.addScoreModal} toggle={this.toggle}>*/}
+                   {/*<ModalHeader>Update your score for this week</ModalHeader>*/}
+                   {/*<ModalBody>*/}
+                       {/*<Form style={{maxWidth: '14vw'}}>*/}
+                           {/*<FormGroup>*/}
+                               {/*<label htmlFor="#score">Score Logged</label>*/}
+                               {/*<FormInput type="number" onChange={this.updateInput} value={this.state.usernameLogin} id="score" placeholder="Score Logged" />*/}
+                           {/*</FormGroup>*/}
+                       {/*</Form>*/}
+                   {/*</ModalBody>*/}
+                   {/*<ModalFooter>*/}
+                       {/*<Button className="float-right" onClick={this.addScore}  theme="info">Add</Button>*/}
+                   {/*</ModalFooter>*/}
+               {/*</Modal>*/}
+               {/*<h2> Leaderboard1 <a onClick={this.toggle} href="#">+</a></h2>*/}
+               {/*<table>*/}
+                   {/*{this.state.scores }*/}
+               {/*</table>*/}
+<p>Hello</p>
            </div>
         );
     }
